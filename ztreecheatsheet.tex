@@ -1,0 +1,241 @@
+% z-Tree Cheat Sheet
+% Prepared by Seyhun Saral
+% seyhunsaral@gmail.com
+
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage[landscape]{geometry}
+\usepackage{color,graphicx,overpic}
+\usepackage{hyperref}
+\usepackage[none]{hyphenat}
+
+% Arranging margins
+\geometry{top=.4in,left=.3in,right=.3in,bottom=.4in}
+ 
+% To remove spacing in center environment
+% Credit to cmhughes https://tex.stackexchange.com/questions/74212/how-can-i-change-the-whitespace-above-and-below-center
+
+\let\oldcenter\center
+\let\oldendcenter\endcenter	
+\renewenvironment{center}{\setlength\topsep{0pt}\oldcenter}{\oldendcenter}
+
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+		{-1ex plus -.5ex minus -.2ex}%
+		{0.5ex plus .2ex}%x
+		{\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+		{-1explus -.5ex minus -.2ex}%
+		{0.5ex plus .2ex}%
+		{\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+		{-1ex plus -.5ex minus -.2ex}%
+		{1ex plus .2ex}%
+		{\normalfont\small\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0}
+
+	
+	\def\code#1{\texttt{#1}}
+	\newcommand{\ColDivL}{0.1}
+	\newcommand{\ColDivR}{0.9}
+	\newcommand{\SetDivs}[2]{\renewcommand{\ColDivL}{#1}\renewcommand{\ColDivR}{#2}}
+
+	\newcommand{\cseS}[2]{\code{#2} \\ \vspace{0.2em}}
+	\newcommand{\cseN}[2]{#1 \\  \code{#2}  \\ \vspace{0.4em}}
+	\newcommand{\cseM}[2]{\textbf{#1}\\ \code{#2}\\ \vspace{0.2em}}
+
+	\newcommand{\cse}[2]{
+		\begin{tabular}{@{}p{\ColDivL\linewidth}@{}p{\ColDivR\linewidth}@{}}
+		\code{#2} & #1 \\
+	\end{tabular} \\ \vspace{0.1em}
+}
+		\newcommand{\cseI}[2]{
+		\begin{tabular}{@{}p{\ColDivL\linewidth}@{}p{\ColDivR\linewidth}@{}}
+			#1 & \code{#2} \\
+		\end{tabular} \\ \vspace{0.3em}
+	}
+	\begin{document}
+		\raggedright
+		\footnotesize
+		\begin{multicols*}{3}
+			
+			\setlength{\premulticols}{1pt}
+			\setlength{\postmulticols}{1pt}
+			\setlength{\multicolsep}{1pt}
+			\setlength{\columnsep}{2pt}
+			\begin{center}
+				\Large{\underline{z-Tree Cheat Sheet}} \\
+				\tiny{Prepared by Seyhun Saral \\ Comments and suggestions are welcomed\\ \href{mailto: seyhunsaral@gmail.com}{seyhunsaral@gmail.com}\\ %\url{https://github.com/seyhunsaral/ztreecheatsheet}
+				}
+			\end{center}
+		\rule{\linewidth}{0.25pt}
+		\textit{cond} stands for logical statements.  \textit{expr} stands for an expression or a block of expressions.  
+		\rule{\linewidth}{0.25pt}
+			\section{Operators}	\setlength\multicolsep{0pt}
+			\begin{multicols*}{2}
+				\cse{assignment}{=}
+			\cse{addition}{+}
+			\cse{substraction}{-}
+			\cse{multiplication}{*}
+			\cse{division}{/}
+			\cse{smaller}{<}
+			\cse{greater}{>}
+			\cse{smaller or equal}{<=}
+			\cse{greater or equal}{>=}
+			
+			\cse{equals}{==}
+			\cse{unequal}{!=}
+			\cse{and}{\&}
+			\cse{or}{|}
+			\cse{next higher scope}{:}
+			\cse{highest scope (globals)}{\textbackslash}
+		\end{multicols*}
+				\rule{\linewidth}{0.25pt}
+				
+				\section{Functions}
+			\subsubsection{Variable Functions}
+			\SetDivs{0.4}{0.6}
+			\cse{Absolute value}{abs(x)}
+			\cse{Seconds since computer was started}{gettime()}
+			\cse{If cond is true, x, otherwise y}{if(cond,x,y)}
+			\cse{Maximum of x and y}{max(x,y)}
+			\cse{Minimum of x and y}{min(x,y)}
+			\cse{Remainder of x/y}{mod(x,y)}
+			\cse{$x^y$}{power(x,y)}
+			\cse{Uniform random between 0 and 1}{random()}
+			\cse{Normal random with avg 0 and sd1}{randomgauss()}
+			\cse{Rounds x to a multiple of y}{round(x,y)}
+			\cse{Rounds x down to a multiple of y}{rounddown(x,y)}
+			\cse{Rounds x up to a multiple of y}{roundup(x,y)}
+			\cse{Equality check of x with higher scope (\code{x==:x)} }{same(x)}
+			\cse{Square root of x}{sqrt(x)}
+			
+			\subsubsection{Table Functions}
+			(\textit{cond} is optional for all functions below)
+			\cse{Average of the numeric values}{average(\textit{cond},\textit{x})}
+			\cse{Number of (found) records}{count(\textit{cond})}
+			\cse{First (found)value}{find(\textit{cond},\textit{x})}
+			\cse{Maximum of the (found) values}{maximum(\textit{cond},\textit{x})}
+			\cse{Minimum of the (found) values}{minimum(\textit{cond},\textit{x})}
+			\cse{Sum of the (found) values}{sum(\textit{cond},\textit{x})}
+			\rule{\linewidth}{0.25pt}	
+				\section{Arrays}
+			\SetDivs{0.5}{0.5}
+			\cse{Creates an array with \textit{n} elements}{array \textit{myarray}[\textit{n}]}
+			\cse{Calls $i^{th}$ element of the array \textit{myarray} } {\textit{myarray}[i]}
+			
+			\rule{\linewidth}{0.25pt}
+			
+			\columnbreak
+			
+			\rule{\linewidth}{0.25pt}	
+			\section{Conditional Statements}
+			%\cse{Assign y to x}{x = y}
+			\SetDivs{0.5}{0.5}
+			\cse{If \textit{cond} is TRUE, \textit{exprs} are executed}{if (\textit{cond}) \{ \textit{exprs} \} }
+			\cse{If \textit{cond1} is TRUE, \textit{exprs1} are executed; otherwise if \textit{cond2} is TRUE, \textit{exprs2} are executed.}{if (\textit{cond}) \{ \textit{exprs1} \} elseif (\textit{cond2}) \{ exprs2 \} }
+			\cse{If cond is TRUE, \textit{exprs} are executed; otherwise \textit{otherexprs} are executed}{if (\textit{cond}) \{ \textit{exprs} \} else \{ otherexprs \} }
+			\rule{\linewidth}{0.25pt}	
+	
+	
+		
+				\section{Loops and Iterators}
+
+			\SetDivs{0.5}{0.5}	
+			\cse{While \textit{cond} is true, \textit{ expr } are executed}{while(\textit{cond})\{\textit{exprs}\}}
+			\cse{\textit{expr} are executed, then while \textit{cond} is true expr are executed}{repeat \{\textit{exprs}\} while (\textit{cond});}
+			\cse{After  \textit{x} seconds, \textit{ expr } are executed}{later(\textit{x}) do \{\textit{exprs}\}}
+			\cse{Each  \textit{x} seconds, \textit{ expr } are executed}{later(\textit{x}) repeat \{\textit{exprs}\}}	
+			\textbf{(!) Iterators are replaced with \textit{for} loops from version 4+}
+			\cse{\textit{i} runs from 1 to \textit{n} \newline \textit{i} runs from \textit{m} to \textit{n} in steps on 1 \newline \textit{i} runs from \textit{m} to \textit{n} in steps of \textit{s} }{iterator(i,n) \newline iterator(i,m,n) \newline iterator(i,m,n,s)}
+			\rule{\linewidth}{0.25pt}
+				
+				
+				\section{Built-in Variables}
+				\subsubsection{Globals}
+				\SetDivs{0.5}{0.5}	
+				\cse{Current period}{Period}
+				\cse{Total number of periods}{NumPeriods}
+				\cse{Repeat treatment if $> 0$}{RepeatTreatment}
+				\subsubsection{Subjects}
+				\cse{Current period}{Period}
+				\cse{Subject number}{Subject}
+				\cse{Group number}{Group}
+				\cse{Total profit in treatment}{TotalProfit}
+				\cse{Enter stage if 1, do not if 0}{Participate}
+				\cse{Leave active stage if 1}{Leave stage}
+				\subsubsection{Session}
+				\cse{Income without show-up fee}{FinalProfit}
+				\cse{Show-up fee}{ShowUpFee}
+				\cse{FinalProfit + ShowUpFee}{MoneyEarned}
+				\cse{Credit given to subject}{MoneyAdded}
+				\cse{FinalProfit + ShowUpFee + MoneyAdded}{MoneyToPay}
+				
+\rule{\linewidth}{0.25pt}
+					\section{Layouts}
+			\vspace{0.6em}
+			\cseS{}{!text: \textit{value1} = "\textit{Label 1}"; \textit{value2} = "\textit{Label 2}";}
+			\cseS{}{!button: \textit{value1} = "\textit{Label 1}"; \textit{value2} = "\textit{Label 2}";}
+			\cseS{}{!radio: \textit{value1} = "\textit{Label 1}"; \textit{value2} = "\textit{Label 2}";}
+			\cseS{}{!radiosequence: \textit{value1} = "\textit{Label 1}"; \textit{\textit{value2}} = "Label 2";}
+			\cseS{}{!radioline: leftvalue = "\textit{LabelLeft}"; rightvalue = "LabelRight"; \textit{numberofbuttons}}
+			\cseS{}{!slider: leftvalue = "\textit{LabelLeft}"; rightvalue = "\textit{LabelRight}";\textit{ numberofincrements}}
+			\cseS{}{!scrollbar: leftvalue = \textit{LabelLeft}"; rightvalue = "\textit{LabelRight}"; \textit{numberofincrements}}
+			\cseS{}{!checkbox: 1 = "\textit{Label}";}
+			\cseS{}{!string}
+			\rule{\linewidth}{0.25pt}
+		\section{Text Formatting}
+	\cse{Process variables inside labels}{<>}
+	\cse{Print the value of the variable x inside label}{<x | layout>}
+	\cse{RTF formatted text}{\{\textbackslash rtf ... \}}
+	\subsubsection{RTF Codes}
+	\begin{multicols*}{2}
+		\cse{font size 18pt }{\textbackslash fs18}
+		\cse{tabulator }{\textbackslash tab}
+		\cse{new line}{\textbackslash line}
+		\cse{aligned to left}{\textbackslash ql}
+		\cse{aligned to right}{\textbackslash qr}
+		\cse{aligned to center}{\textbackslash qc}
+		\cse{start bold}{\textbackslash b}
+		\cse{end bold}{\textbackslash b0}
+		\cse{start italic}{\textbackslash i}
+		\cse{end italic}{\textbackslash i0}
+		\cse{define colors}{\textbackslash colortbl}
+		\cse{start color 1}{\textbackslash cf1}
+	\end{multicols*}
+	\subsubsection{RTF Example}
+	\code{\{\textbackslash rtf \textbackslash fs21 This is \textbackslash i italic \textbackslash i0 and this is \textbackslash b bold \textbackslash b0 text \}} \\
+	Result: This is \textit{italic} and this is \textbf{bold} text.		\\
+	
+		\vspace{0.6em}
+	\code{\{\textbackslash rtf \{\textbackslash colortbl;\textbackslash red0 \textbackslash green0 \textbackslash blue0;\textbackslash red255\textbackslash green0\textbackslash blue0;\} \textbackslash This is \textbackslash cf2 red \textbackslash cf1  and the rest is black. \}} \\
+	Result: This is \color{red} red \color{black} and the rest is black	\\
+	
+				\rule{\linewidth}{0.25pt}
+		
+	\section{Common Operations}
+	\cseN{Getting opponents' variable in two player games}{Opponent\_x = find(same(Group) \& not(same(Subject)),x);}
+	
+	\cseN{Rank according to a variable number within the group}{Rank = count(same(Subject) \& :x >= x);}
+	
+	\cseN{Conditional participation to a stage}{Participate = if(x == 1,1,0);}
+	
+	\cseN{Getting variable values from previous period}{x = OLDsubjects.find(same(Subject), x);}
+	
+	\rule{\linewidth}{0.25pt}
+	\section{Keyboard Shortcuts}
+		\SetDivs{0.5}{0.5}
+		\begin{multicols}{2}
+	\cseI{Start treatment}{F5}
+	\cseI{Stop clock}{F12}
+	\cseI{Restart clock}{Shift + F12}
+	\cseI{Break loop}{Ctrl + Shift + F5}
+\end{multicols}
+\rule{\linewidth}{0.25pt}
+	\section{References}
+Fischbacher, Bendrick, Schmidt (2005) \textit{z-Tree 3.5 Tutorial and Reference Manual}. \url{www.ztree.uzh.ch/static/doc/manual.pdf}. 
+		\end{multicols*}
+
+	\end{document}
